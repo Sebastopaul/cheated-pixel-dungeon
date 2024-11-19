@@ -1142,7 +1142,7 @@ public class Badges {
 	}
 	
 	public static void unlock( Badge badge ){
-		if (!isUnlocked(badge) && (badge.type == BadgeType.JOURNAL || Dungeon.customSeedText.isEmpty() || Dungeon.cheatMode)){
+		if (!isUnlocked(badge) && (badge.type == BadgeType.JOURNAL || Dungeon.customSeedText.isEmpty() || Cheats.allowBadges())){
 			global.add( badge );
 			saveNeeded = true;
 		}

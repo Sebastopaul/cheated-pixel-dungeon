@@ -228,7 +228,6 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_CUSTOM_SEED	  = "custom_seed";
 	public static final String KEY_LAST_DAILY	  = "last_daily";
 	public static final String KEY_INTRO		  = "intro";
-	public static final String KEY_CHEAT_MODE     = "cheat_mode";
 
 	public static final String KEY_SUPPORT_NAGGED = "support_nagged";
 	public static final String KEY_VICTORY_NAGGED = "victory_nagged";
@@ -273,14 +272,6 @@ public class SPDSettings extends GameSettings {
 		return getLong( KEY_LAST_DAILY, 0);
 	}
 
-	public static void cheatMode( boolean value ) {
-		put( KEY_CHEAT_MODE, value );
-	}
-
-	public static boolean cheatMode() {
-		return getBoolean( KEY_CHEAT_MODE, false );
-	}
-
 	public static void supportNagged( boolean value ) {
 		put( KEY_SUPPORT_NAGGED, value );
 	}
@@ -295,6 +286,108 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean victoryNagged() {
 		return getBoolean( KEY_VICTORY_NAGGED, false);
+	}
+
+	//Cheat Mode
+
+	public static final String KEY_CHEAT_MODE     = "cheat_mode";
+	public static final String KEY_CM_ALLOW_BADGES = "cm_allow_badges";
+	public static final String KEY_CM_DISABLE_CHALLENGES = "cm_disable_challenges_effects";
+	public static final String KEY_CM_PREVENT_ENCHANT_LOSS = "cm_prevent_enchant_loss";
+	public static final String KEY_CM_DISABLE_RESTRAINTS_SCROLLS = "cm_disable_restraints_scrolls";
+	public static final String KEY_CM_DISABLE_RESTRAINTS_POTIONS = "cm_disable_restraints_strength_potions";
+	public static final String KEY_CM_ADDITIONAL_PROBS_FOR_RARE_SCROLLS = "cm_additional_probs_for_rare_scrolls";
+	public static final String KEY_CM_ADDITIONAL_PROBS_FOR_RARE_POTIONS = "cm_additional_probs_for_rare_potions";
+	public static final String KEY_CM_DAMAGE_MULTIPLIER = "cm_damage_multiplier";
+	public static final String KEY_CM_DAMAGE_REDUCTION_MULtIPLIER = "cm_damage_reduction_multiplier";
+	public static final String KEY_CM_ADDITIONAL_LEVELS_ON_ITEMS = "cm_additional_levels_on_items";
+
+	public static void cheatMode( boolean value ) {
+		put( KEY_CHEAT_MODE, value );
+	}
+
+	public static boolean cheatMode() {
+		return getBoolean( KEY_CHEAT_MODE, false );
+	}
+
+	public static void cmAllowBadges( boolean value ) {
+		put( KEY_CM_ALLOW_BADGES, value );
+	}
+
+	public static boolean cmAllowBadges() {
+		return getBoolean( KEY_CM_ALLOW_BADGES, false );
+	}
+
+	public static void cmDisableChallenges( boolean value ) {
+		put( KEY_CM_DISABLE_CHALLENGES, value );
+	}
+
+	public static boolean cmDisableChallenges() {
+		return getBoolean( KEY_CM_DISABLE_CHALLENGES, false );
+	}
+
+	public static void cmPreventEnchantLoss( boolean value ) {
+		put( KEY_CM_PREVENT_ENCHANT_LOSS, value );
+	}
+
+	public static boolean cmPreventEnchantLoss() {
+		return getBoolean( KEY_CM_PREVENT_ENCHANT_LOSS, false );
+	}
+
+	public static void cmDisableRestraintsScrolls( boolean value ) {
+		put( KEY_CM_DISABLE_RESTRAINTS_SCROLLS, value );
+	}
+
+	public static boolean cmDisableRestraintsScrolls() {
+		return getBoolean( KEY_CM_DISABLE_RESTRAINTS_SCROLLS, false );
+	}
+
+	public static void cmDisableRestraintsPotions( boolean value ) {
+		put( KEY_CM_DISABLE_RESTRAINTS_POTIONS, value );
+	}
+
+	public static boolean cmDisableRestraintsPotions() {
+		return getBoolean( KEY_CM_DISABLE_RESTRAINTS_POTIONS, false );
+	}
+
+	public static void cmAdditionalProbsForRareScrolls( int value ) {
+		put( KEY_CM_ADDITIONAL_PROBS_FOR_RARE_SCROLLS, value );
+	}
+
+	public static int cmAdditionalProbsForRareScrolls() {
+		return getInt( KEY_CM_ADDITIONAL_PROBS_FOR_RARE_SCROLLS, 0 );
+	}
+
+	public static void cmAdditionalProbsForRarePotions( int value ) {
+		put( KEY_CM_ADDITIONAL_PROBS_FOR_RARE_POTIONS, value );
+	}
+
+	public static int cmAdditionalProbsForRarePotions() {
+		return getInt( KEY_CM_ADDITIONAL_PROBS_FOR_RARE_POTIONS, 0 );
+	}
+
+	public static void cmAdditionalLevelsOnItems( int value ) {
+		put( KEY_CM_ADDITIONAL_LEVELS_ON_ITEMS, value );
+	}
+
+	public static int cmAdditionalLevelsOnItems() {
+		return getInt( KEY_CM_ADDITIONAL_LEVELS_ON_ITEMS, 0 );
+	}
+
+	public static void cmDamageMultiplier( int value ) {
+		put( KEY_CM_DAMAGE_MULTIPLIER, value );
+	}
+
+	public static int cmDamageMultiplier() {
+		return getInt( KEY_CM_DAMAGE_MULTIPLIER, 1 );
+	}
+
+	public static void cmDamageReductionMultiplier( int value ) {
+		put( KEY_CM_DAMAGE_REDUCTION_MULtIPLIER, value );
+	}
+
+	public static int cmDamageReductionMultiplier() {
+		return getInt( KEY_CM_DAMAGE_REDUCTION_MULtIPLIER, 1 );
 	}
 
 	//Input
