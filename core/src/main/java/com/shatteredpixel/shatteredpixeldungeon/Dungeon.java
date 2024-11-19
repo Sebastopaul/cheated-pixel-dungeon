@@ -752,7 +752,7 @@ public class Dungeon {
 
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
 		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
-		Dungeon.cheatMode = true; //bundle.getBoolean( CHEAT_MODE );
+		Dungeon.cheatMode = bundle.getBoolean( CHEAT_MODE ); //bundle.getBoolean( CHEAT_MODE );
 		
 		Dungeon.level = null;
 		Dungeon.depth = -1;
