@@ -311,7 +311,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int DRMax(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
 		}
 
@@ -328,7 +328,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int DRMin(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
 		}
 
@@ -428,7 +428,7 @@ public class Armor extends EquipableItem {
 			if (glyph == null){
 				inscribe( Glyph.random() );
 			}
-		} else if (glyph != null) {
+		} else if (glyph != null  && !Dungeon.isCheated()) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (glyphHardened) {
 				if (level() >= 6 && Random.Float(10) < Math.pow(2, level()-6)){
@@ -684,13 +684,13 @@ public class Armor extends EquipableItem {
 	}
 	
 	public static abstract class Glyph implements Bundlable {
-		
+
 		public static final Class<?>[] common = new Class<?>[]{
-				Obfuscation.class, Swiftness.class, Viscosity.class, Potential.class };
+				Obfuscation.class, Swiftness.class, Viscosity.class, Dungeon.isCheated() ? (AntiMagic.class):Potential.class};
 
 		public static final Class<?>[] uncommon = new Class<?>[]{
 				Brimstone.class, Stone.class, Entanglement.class,
-				Repulsion.class, Camouflage.class, Flow.class };
+				Repulsion.class, Camouflage.class, Dungeon.isCheated() ? (AntiMagic.class) : Flow.class };
 
 		public static final Class<?>[] rare = new Class<?>[]{
 				Affection.class, AntiMagic.class, Thorns.class };

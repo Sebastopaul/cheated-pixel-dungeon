@@ -112,7 +112,7 @@ public class Food extends Item {
 	
 	protected void satisfy( Hero hero ){
 		float foodVal = energy;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_FOOD)){
 			foodVal /= 3f;
 		}
 

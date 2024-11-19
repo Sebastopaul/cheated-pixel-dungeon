@@ -130,6 +130,9 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		chest.autoExplored = true;
 
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		if (Dungeon.isCheated()) {
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		}
 
 		entrance().set( Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey( Dungeon.depth ) );

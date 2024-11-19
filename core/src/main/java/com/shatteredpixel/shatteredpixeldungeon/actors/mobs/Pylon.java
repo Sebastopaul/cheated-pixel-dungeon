@@ -51,7 +51,7 @@ public class Pylon extends Mob {
 	{
 		spriteClass = PylonSprite.class;
 
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50;
+		HP = HT = !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50;
 
 		maxLvl = -2;
 
@@ -96,7 +96,7 @@ public class Pylon extends Mob {
 
 		shockCells.add(pos + PathFinder.CIRCLE8[targetNeighbor]);
 
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 			shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+3)%8]);
 			shockCells.add(pos + PathFinder.CIRCLE8[(targetNeighbor+5)%8]);
 		} else {
@@ -204,7 +204,7 @@ public class Pylon extends Mob {
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
-			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/2f);
+			if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/2f);
 			else                                                    lock.addTime(dmg);
 		}
 		super.damage(dmg, src);

@@ -207,7 +207,7 @@ public class MiningLevel extends CavesLevel {
 			drop( Generator.randomUsingDefaults(Generator.Category.FOOD), cell );
 		}
 
-		if (Dungeon.isChallenged(Challenges.DARKNESS)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.DARKNESS)){
 			cell = randomDropCell();
 			if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
 				map[cell] = Terrain.GRASS;

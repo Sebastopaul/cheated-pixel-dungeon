@@ -82,7 +82,7 @@ public class UnstableBrew extends Brew {
 	@Override
 	public void apply(Hero hero) {
 		//Don't allow this to roll healing in pharma
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_HEALING)){
 			potionChances.put(PotionOfHealing.class, 0f);
 		}
 
@@ -96,7 +96,7 @@ public class UnstableBrew extends Brew {
 		p.anonymize();
 		p.apply(hero);
 
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_HEALING)){
 			potionChances.put(PotionOfHealing.class, 3f);
 		}
 	}

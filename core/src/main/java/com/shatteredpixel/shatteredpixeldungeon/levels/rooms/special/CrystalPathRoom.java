@@ -246,6 +246,11 @@ public class CrystalPathRoom extends SpecialRoom {
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		if (Dungeon.isCheated()) {
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		}
 
 		entrance().set( Door.Type.UNLOCKED );
 

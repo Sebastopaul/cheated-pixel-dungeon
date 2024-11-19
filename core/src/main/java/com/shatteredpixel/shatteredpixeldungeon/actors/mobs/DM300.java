@@ -80,7 +80,7 @@ public class DM300 extends Mob {
 	{
 		spriteClass = DM300Sprite.class;
 
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 400 : 300;
+		HP = HT = !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 400 : 300;
 		EXP = 30;
 		defenseSkill = 15;
 
@@ -109,7 +109,7 @@ public class DM300 extends Mob {
 	public boolean chargeAnnounced = false;
 
 	private final int MIN_COOLDOWN = 5;
-	private final int MAX_COOLDOWN = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 7 : 9;
+	private final int MAX_COOLDOWN = !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 7 : 9;
 
 	private int turnsSinceLastAbility = -1;
 	private int abilityCooldown = Random.NormalIntRange(MIN_COOLDOWN, MAX_COOLDOWN);
@@ -376,7 +376,7 @@ public class DM300 extends Mob {
 
 		Ballistica trajectory = new Ballistica(pos, target.pos, Ballistica.STOP_TARGET);
 
-		int gasMulti = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 1;
+		int gasMulti = !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2 : 1;
 
 		for (int i : trajectory.subPath(0, trajectory.dist)){
 			GameScene.add(Blob.seed(i, 20*gasMulti, ToxicGas.class));
@@ -481,13 +481,13 @@ public class DM300 extends Mob {
 		if (dmgTaken > 0) {
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 			if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
-				if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/2f);
+				if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/2f);
 				else                                                    lock.addTime(dmgTaken);
 			}
 		}
 
 		int threshold;
-		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 			threshold = HT / 4 * (3 - pylonsActivated);
 		} else {
 			threshold = HT / 3 * (2 - pylonsActivated);
@@ -501,7 +501,7 @@ public class DM300 extends Mob {
 	}
 
 	public int totalPylonsToActivate(){
-		return Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 3 : 2;
+		return !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 3 : 2;
 	}
 
 	@Override
@@ -518,7 +518,7 @@ public class DM300 extends Mob {
 		((CavesBossLevel)Dungeon.level).activatePylon();
 		pylonsActivated++;
 
-		spend(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
+		spend(!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
 		yell(Messages.get(this, "charging"));
 		sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
 		((DM300Sprite)sprite).updateChargeState(true);
@@ -630,7 +630,7 @@ public class DM300 extends Mob {
 				}
 				Dungeon.level.cleanWalls();
 				Dungeon.observe();
-				spend(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
+				spend(!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
 
 				bestpos = pos;
 				for (int i : PathFinder.NEIGHBOURS8){
@@ -679,7 +679,7 @@ public class DM300 extends Mob {
 		@Override
 		public void affectChar(Char ch) {
 			if (!(ch instanceof DM300)){
-				Buff.prolong(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
+				Buff.prolong(ch, Paralysis.class, !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
 				if (ch == Dungeon.hero) {
 					Statistics.bossScores[2] -= 100;
 				}

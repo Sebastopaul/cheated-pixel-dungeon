@@ -367,6 +367,9 @@ public class Item implements Bundlable {
 
 	//returns the persistant level of the item, only affected by modifiers which are persistent (e.g. curse infusion)
 	public int level(){
+		if (Dungeon.isCheated()) {
+			return level + 1;
+		}
 		return level;
 	}
 	

@@ -175,7 +175,7 @@ public class Dungeon {
 
 			//pre-v2.2.0 saves
 			if (Dungeon.version < 750
-					&& Dungeon.isChallenged(Challenges.NO_SCROLLS)
+					&& !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_SCROLLS)
 					&& UPGRADE_SCROLLS.count > 0){
 				//we now count SOU fully, and just don't drop every 2nd one
 				UPGRADE_SCROLLS.count += UPGRADE_SCROLLS.count-1;
@@ -216,6 +216,7 @@ public class Dungeon {
 	public static boolean dailyReplay;
 	public static String customSeedText = "";
 	public static long seed;
+	public static boolean cheatMode = false;
 
 	//we initialize the seed separately so that things like interlevelscene can access it early
 	public static void initSeed(){
@@ -238,6 +239,7 @@ public class Dungeon {
 
 		initialVersion = version = Game.versionCode;
 		challenges = SPDSettings.challenges();
+		cheatMode = SPDSettings.cheatMode();
 		mobsToChampion = -1;
 
 		Actor.clear();
@@ -292,6 +294,9 @@ public class Dungeon {
 
 	public static boolean isChallenged( int mask ) {
 		return (challenges & mask) != 0;
+	}
+	public static boolean isCheated() {
+		return cheatMode;
 	}
 
 	public static boolean levelHasBeenGenerated(int depth, int branch){
@@ -525,8 +530,9 @@ public class Dungeon {
 	}
 
 	public static boolean posNeeded() {
-		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
+		int defaultPosOnEachSet = isCheated() ? 4 : 2;
+//2 POS each floor set
+		int posLeftThisSet = defaultPosOnEachSet - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * defaultPosOnEachSet);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -539,11 +545,12 @@ public class Dungeon {
 		else return false;
 
 	}
-	
+
 	public static boolean souNeeded() {
+		int defaultSouOnEachSet = isCheated() ? 5 : 3;
 		int souLeftThisSet;
 		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+		souLeftThisSet = defaultSouOnEachSet - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * defaultSouOnEachSet);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -603,6 +610,7 @@ public class Dungeon {
 	private static final String DAILY	    = "daily";
 	private static final String DAILY_REPLAY= "daily_replay";
 	private static final String CHALLENGES	= "challenges";
+	private static final String CHEAT_MODE	= "cheat_mode";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -629,6 +637,7 @@ public class Dungeon {
 			bundle.put( DAILY, daily );
 			bundle.put( DAILY_REPLAY, dailyReplay );
 			bundle.put( CHALLENGES, challenges );
+			bundle.put( CHEAT_MODE, cheatMode );
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -743,6 +752,7 @@ public class Dungeon {
 
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
 		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
+		Dungeon.cheatMode = true; //bundle.getBoolean( CHEAT_MODE );
 		
 		Dungeon.level = null;
 		Dungeon.depth = -1;
