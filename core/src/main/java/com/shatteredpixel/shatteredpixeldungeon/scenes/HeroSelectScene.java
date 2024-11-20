@@ -33,14 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.*;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndChallenges;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndHeroInfo;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
+import com.shatteredpixel.shatteredpixeldungeon.windows.*;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -587,18 +580,11 @@ public class HeroSelectScene extends PixelScene {
 
 			buttons = new ArrayList<>();
 			spacers = new ArrayList<>();
-			CheckBox chkCheatMode = new CheckBox( Messages.get(HeroSelectScene.class, "cheat_mode") ) {
-				@Override
-				protected void onClick() {
-					super.onClick();
-					SPDSettings.cheatMode(checked());
-				}
-			};
 
 			StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6){
 				@Override
 				protected void onClick() {
-					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug() && !SPDSettings.cheatMode()) {
+					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()) {
 						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
 								Icons.get(Icons.SEED),
 								Messages.get(HeroSelectScene.class, "custom_seed"),
@@ -786,8 +772,14 @@ public class HeroSelectScene extends PixelScene {
 				spacers.add(spc);
 			}
 
-			buttons.add(chkCheatMode);
-			add(chkCheatMode);
+			StyledButton cheatButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "cheat"), 6) {
+				@Override
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new WndCheats(SPDSettings.boolCheats(), true));
+				}
+			};
+			buttons.add(cheatButton);
+			add(cheatButton);
 		}
 
 		@Override

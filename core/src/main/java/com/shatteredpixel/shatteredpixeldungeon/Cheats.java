@@ -2,122 +2,128 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.watabou.utils.Bundle;
 
+import java.util.Map;
+
 public class Cheats {
-    private static boolean enabled = false;
-    private static boolean allowBadges = false;
-    private static boolean disableChallengesEffects = true;
-    private static boolean preventEnchantLoss = true;
-    private static boolean disableRestraintsOnUpgradeScrolls = true;
-    private static boolean disableRestraintsOnStrengthPotions = true;
+
+    public static final int ENABLED = 1;
+    public static final int ALLOW_BADGES = 2;
+    public static final int DISABLE_CHALLENGES_EFFECTS = 4;
+    public static final int PREVENT_ENCHANT_LOSS = 8;
+    public static final int USE_SEAL_LEVEL = 16;
+    public static final int SPAWN_ALL_CRYSTAL_KEYS = 32;
+
+    public static final int MAX_VALUE = 63;
+
+    public static final String[] BOOL_NAME_IDS = {
+        "enabled",
+        "allow_badges",
+        "disable_challenges_effects",
+        "prevent_enchant_loss",
+        "use_seal_level",
+        "spawn_all_crystal_keys",
+    };
+
+    public static final int[] BOOL_MASKS = {
+            ENABLED,
+            ALLOW_BADGES,
+            DISABLE_CHALLENGES_EFFECTS,
+            PREVENT_ENCHANT_LOSS,
+            USE_SEAL_LEVEL,
+            SPAWN_ALL_CRYSTAL_KEYS,
+    };
+
+    public static final String[] SLIDERS_NAME_IDS = {
+            "cm_max_upgrade_scrolls",
+            "cm_max_strength_potions",
+            "cm_additional_probs_scrolls",
+            "cm_additional_probs_potions",
+            "cm_damage_multiplier",
+            "cm_damage_reduction_multiplier",
+            "cm_additional_levels_items",
+            "cm_max_seal_level",
+    };
+    public static final int[] SLIDERS_DEF_VALUES = { 3, 2, 0, 0, 1, 1, 0, 1 };
+    public static final int[] SLIDERS_MIN_VALUES = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    public static final int[] SLIDERS_MAX_VALUES = { 10, 10, 10, 10, 10, 10, 25, 25 };
+
+    public static final int MAX_UPGRADE_SCROLLS = 0;
+    public static final int MAX_STRENGTH_POTIONS = 1;
+    public static final int ADDITIONAL_PROBS_SCROLLS = 2;
+    public static final int ADDITIONAL_PROBS_POTIONS = 3;
+    public static final int DAMAGE_MULTIPLIER = 4;
+    public static final int DAMAGE_REDUCTION_MULTIPLIER = 5;
+    public static final int ADDITIONAL_LEVELS_ITEMS = 6;
+    public static final int MAX_SEAL_LEVEL = 7;
+
+    private static int boolCheats = 0;
+    private static int maxNumberOfUpgradeScrolls = 3;
+    private static int maxNumberOfStrengthPotions = 2;
     private static int additionalProbsForRareScrolls = 0;
     private static int additionalProbsForRarePotions = 0;
     private static int damageMultiplier = 1;
     private static int damageReductionMultiplier = 1;
     private static int additionalLevelsOnItems = 0;
+    private static int maxSealLevel = 1;
 
     public static void reset() {
-        enabled = SPDSettings.cheatMode();
-
-        if (!enabled) {
-            return;
-        }
-
-        allowBadges = SPDSettings.cmAllowBadges();
-        disableChallengesEffects = SPDSettings.cmDisableChallenges();
-        preventEnchantLoss = SPDSettings.cmPreventEnchantLoss();
-        disableRestraintsOnUpgradeScrolls = SPDSettings.cmDisableRestraintsScrolls();
-        disableRestraintsOnStrengthPotions = SPDSettings.cmDisableRestraintsPotions();
-        additionalProbsForRareScrolls = SPDSettings.cmAdditionalProbsForRareScrolls();
-        additionalProbsForRarePotions = SPDSettings.cmAdditionalProbsForRarePotions();
-        damageMultiplier = SPDSettings.cmDamageMultiplier();
-        damageReductionMultiplier = SPDSettings.cmDamageReductionMultiplier();
-        additionalLevelsOnItems = SPDSettings.cmAdditionalLevelsOnItems();
+        boolCheats                    = SPDSettings.boolCheats();
+        maxNumberOfUpgradeScrolls     = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[MAX_UPGRADE_SCROLLS], SLIDERS_DEF_VALUES[MAX_UPGRADE_SCROLLS], SLIDERS_MIN_VALUES[MAX_UPGRADE_SCROLLS], SLIDERS_MAX_VALUES[MAX_UPGRADE_SCROLLS]);
+        maxNumberOfStrengthPotions    = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[MAX_STRENGTH_POTIONS], SLIDERS_DEF_VALUES[MAX_STRENGTH_POTIONS], SLIDERS_MIN_VALUES[MAX_STRENGTH_POTIONS], SLIDERS_MAX_VALUES[MAX_STRENGTH_POTIONS]);
+        additionalProbsForRareScrolls = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_SCROLLS], SLIDERS_DEF_VALUES[ADDITIONAL_PROBS_SCROLLS], SLIDERS_MIN_VALUES[ADDITIONAL_PROBS_SCROLLS], SLIDERS_MAX_VALUES[ADDITIONAL_PROBS_SCROLLS]);
+        additionalProbsForRarePotions = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_POTIONS], SLIDERS_DEF_VALUES[ADDITIONAL_PROBS_POTIONS], SLIDERS_MIN_VALUES[ADDITIONAL_PROBS_POTIONS], SLIDERS_MAX_VALUES[ADDITIONAL_PROBS_POTIONS]);
+        damageMultiplier              = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[DAMAGE_MULTIPLIER], SLIDERS_DEF_VALUES[DAMAGE_MULTIPLIER], SLIDERS_MIN_VALUES[DAMAGE_MULTIPLIER], SLIDERS_MAX_VALUES[DAMAGE_MULTIPLIER]);
+        damageReductionMultiplier     = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_DEF_VALUES[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_MIN_VALUES[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_MAX_VALUES[DAMAGE_REDUCTION_MULTIPLIER]);
+        additionalLevelsOnItems       = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[ADDITIONAL_LEVELS_ITEMS], SLIDERS_DEF_VALUES[ADDITIONAL_LEVELS_ITEMS], SLIDERS_MIN_VALUES[ADDITIONAL_LEVELS_ITEMS], SLIDERS_MAX_VALUES[ADDITIONAL_LEVELS_ITEMS]);
+        maxSealLevel                  = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[MAX_SEAL_LEVEL], SLIDERS_DEF_VALUES[MAX_SEAL_LEVEL], SLIDERS_MIN_VALUES[MAX_SEAL_LEVEL], SLIDERS_MAX_VALUES[MAX_SEAL_LEVEL]);
     }
 
     public static void save(Bundle bundle) {
-        bundle.put("cm_enabled", enabled);
-
-        if (!enabled) {
-            return;
-        }
-
-        bundle.put("cm_allow_badges", allowBadges);
-        bundle.put("cm_disable_challenges_effects", disableChallengesEffects);
-        bundle.put("cm_prevent_enchant_loss", preventEnchantLoss);
-        bundle.put("cm_disable_restraints_scrolls", disableRestraintsOnUpgradeScrolls);
-        bundle.put("cm_disable_restraints_strength_potions", disableRestraintsOnStrengthPotions);
-        bundle.put("cm_additional_probs_for_rare_scrolls", additionalProbsForRareScrolls);
-        bundle.put("cm_additional_probs_for_rare_potions", additionalProbsForRarePotions);
-        bundle.put("cm_damage_multiplier", damageMultiplier);
-        bundle.put("cm_damage_reduction_multiplier", damageReductionMultiplier);
-        bundle.put("cm_additional_levels_on_items", additionalLevelsOnItems);
+        bundle.put("cm_bool_cheats", boolCheats);
+        bundle.put(SLIDERS_NAME_IDS[MAX_UPGRADE_SCROLLS], maxNumberOfUpgradeScrolls);
+        bundle.put(SLIDERS_NAME_IDS[MAX_STRENGTH_POTIONS], maxNumberOfStrengthPotions);
+        bundle.put(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_SCROLLS], additionalProbsForRareScrolls);
+        bundle.put(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_POTIONS], additionalProbsForRarePotions);
+        bundle.put(SLIDERS_NAME_IDS[DAMAGE_MULTIPLIER], damageMultiplier);
+        bundle.put(SLIDERS_NAME_IDS[DAMAGE_REDUCTION_MULTIPLIER], damageReductionMultiplier);
+        bundle.put(SLIDERS_NAME_IDS[ADDITIONAL_LEVELS_ITEMS], additionalLevelsOnItems);
+        bundle.put(SLIDERS_NAME_IDS[MAX_SEAL_LEVEL], maxSealLevel);
     }
 
     public static void restore(Bundle bundle) {
-        enabled = bundle.getBoolean("cm_enabled");
-
-        if (!enabled) {
-            return;
-        }
-
-        allowBadges = bundle.getBoolean("cm_allow_badges");
-        disableChallengesEffects = bundle.getBoolean("cm_disable_challenges_effects");
-        preventEnchantLoss = bundle.getBoolean("cm_prevent_enchant_loss");
-        disableRestraintsOnUpgradeScrolls = bundle.getBoolean("cm_disable_restraints_scrolls");
-        disableRestraintsOnStrengthPotions = bundle.getBoolean("cm_disable_restraints_strength_potions");
-        additionalProbsForRareScrolls = bundle.getInt("cm_additional_probs_for_rare_scrolls");
-        additionalProbsForRarePotions = bundle.getInt("cm_additional_probs_for_rare_potions");
-        damageMultiplier = bundle.getInt("cm_damage_multiplier");
-        damageReductionMultiplier = bundle.getInt("cm_damage_reduction_multiplier");
-        additionalLevelsOnItems = bundle.getInt("cm_additional_levels_on_items");
+        boolCheats                    = bundle.getInt("cm_bool_cheats");
+        maxNumberOfUpgradeScrolls     = bundle.getInt(SLIDERS_NAME_IDS[MAX_UPGRADE_SCROLLS]);
+        maxNumberOfStrengthPotions    = bundle.getInt(SLIDERS_NAME_IDS[MAX_STRENGTH_POTIONS]);
+        additionalProbsForRareScrolls = bundle.getInt(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_SCROLLS]);
+        additionalProbsForRarePotions = bundle.getInt(SLIDERS_NAME_IDS[ADDITIONAL_PROBS_POTIONS]);
+        damageMultiplier              = bundle.getInt(SLIDERS_NAME_IDS[DAMAGE_MULTIPLIER]);
+        damageReductionMultiplier     = bundle.getInt(SLIDERS_NAME_IDS[DAMAGE_REDUCTION_MULTIPLIER]);
+        additionalLevelsOnItems       = bundle.getInt(SLIDERS_NAME_IDS[ADDITIONAL_LEVELS_ITEMS]);
+        maxSealLevel                  = bundle.getInt(SLIDERS_NAME_IDS[MAX_SEAL_LEVEL]);
     }
 
-    public static void enabled(boolean value) {
-        enabled = value;
+    public static void boolCheats( int value ) {
+        boolCheats = value;
     }
 
-    public static boolean enabled() {
-        return enabled;
+    public static boolean isCheated( int mask ) {
+        return (boolCheats & mask) != 0;
     }
 
-    public static void allowBadges(boolean value) {
-        allowBadges = value;
+    public static void maxNumberOfUpgradeScrolls(int value) {
+        maxNumberOfUpgradeScrolls = value;
     }
 
-    public static boolean allowBadges() {
-        return enabled && allowBadges;
+    public static int maxNumberOfUpgradeScrolls() {
+        return isCheated(ENABLED) ? maxNumberOfUpgradeScrolls : 3;
     }
 
-    public static void disableChallengesEffects(boolean value) {
-        disableChallengesEffects = value;
+    public static void maxNumberOfStrengthPotions(int value) {
+        maxNumberOfStrengthPotions = value;
     }
 
-    public static boolean disableChallengesEffects() {
-        return enabled && disableChallengesEffects;
-    }
-
-    public static void preventEnchantLoss(boolean value) {
-        preventEnchantLoss = value;
-    }
-
-    public static boolean preventEnchantLoss() {
-        return enabled && preventEnchantLoss;
-    }
-
-    public static void disableRestraintsOnUpgradeScrolls(boolean value) {
-        disableRestraintsOnUpgradeScrolls = value;
-    }
-
-    public static boolean disableRestraintsOnUpgradeScrolls() {
-        return enabled && disableRestraintsOnUpgradeScrolls;
-    }
-
-    public static void disableRestraintsOnStrengthPotions(boolean value) {
-        disableRestraintsOnStrengthPotions = value;
-    }
-
-    public static boolean disableRestraintsOnStrengthPotions() {
-        return enabled && disableRestraintsOnStrengthPotions;
+    public static int maxNumberOfStrengthPotions() {
+        return isCheated(ENABLED) ? maxNumberOfStrengthPotions : 2;
     }
 
     public static void additionalProbsForRareScrolls(int value) {
@@ -125,7 +131,7 @@ public class Cheats {
     }
 
     public static int additionalProbsForRareScrolls() {
-        return enabled ? additionalProbsForRareScrolls : 0;
+        return isCheated(ENABLED) ? additionalProbsForRareScrolls : 0;
     }
 
     public static void additionalProbsForRarePotions(int value) {
@@ -133,7 +139,7 @@ public class Cheats {
     }
 
     public static int additionalProbsForRarePotions() {
-        return enabled ? additionalProbsForRarePotions : 0;
+        return isCheated(ENABLED) ? additionalProbsForRarePotions : 0;
     }
 
     public static void damageMultiplier(int value) {
@@ -141,7 +147,7 @@ public class Cheats {
     }
 
     public static int damageMultiplier() {
-        return enabled ? damageMultiplier : 1;
+        return isCheated(ENABLED) ? damageMultiplier : 1;
     }
 
     public static void damageReductionMultiplier(int value) {
@@ -149,7 +155,7 @@ public class Cheats {
     }
 
     public static int damageReductionMultiplier() {
-        return enabled ? damageReductionMultiplier : 1;
+        return isCheated(ENABLED) ? damageReductionMultiplier : 1;
     }
 
     public static void additionalLevelsOnItems(int value) {
@@ -157,6 +163,14 @@ public class Cheats {
     }
 
     public static int additionalLevelsOnItems() {
-        return enabled ? additionalLevelsOnItems : 0;
+        return isCheated(ENABLED) ? additionalLevelsOnItems : 0;
+    }
+
+    public static void maxSealLevel(int value) {
+        maxSealLevel = value;
+    }
+
+    public static int maxSealLevel() {
+        return isCheated(ENABLED) ? maxSealLevel : 1;
     }
 }

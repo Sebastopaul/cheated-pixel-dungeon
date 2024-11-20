@@ -63,9 +63,9 @@ public class Challenges {
 		return chCount;
 	}
 
-	public static boolean isItemBlocked( Item item ){
+	public static boolean isItemBlocked( Item item ) {
 
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(NO_HERBALISM) && item instanceof Dewdrop){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(NO_HERBALISM) && item instanceof Dewdrop){
 			return true;
 		}
 

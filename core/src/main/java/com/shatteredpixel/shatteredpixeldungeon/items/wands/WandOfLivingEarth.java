@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -192,7 +193,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 	@Override
 	public String upgradeStat3(int level) {
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return level + "-" + (2+level);
 		} else {
 			return level + "-" + (3+(3*level));
@@ -373,7 +374,7 @@ public class WandOfLivingEarth extends DamageWand {
 		@Override
 		public int drRoll() {
 			int dr = super.drRoll();
-			if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
+			if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 				return dr + Random.NormalIntRange(wandLevel, 2 + wandLevel);
 			} else {
 				return dr + Random.NormalIntRange(wandLevel, 3 + 3 * wandLevel);
@@ -385,7 +386,7 @@ public class WandOfLivingEarth extends DamageWand {
 			String desc = Messages.get(this, "desc");
 
 			if (Actor.chars().contains(this)) {
-				if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)) {
+				if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_ARMOR)) {
 					desc += "\n\n" + Messages.get(this, "wand_info", wandLevel, 2 + wandLevel);
 				} else {
 					desc += "\n\n" + Messages.get(this, "wand_info", wandLevel, 3 + 3 * wandLevel);

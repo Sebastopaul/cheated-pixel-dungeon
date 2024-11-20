@@ -175,7 +175,8 @@ public class Dungeon {
 
 			//pre-v2.2.0 saves
 			if (Dungeon.version < 750
-					&& !Cheats.disableChallengesEffects() && Dungeon.isChallenged(Challenges.NO_SCROLLS)
+					&& !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS)
+					&& Dungeon.isChallenged(Challenges.NO_SCROLLS)
 					&& UPGRADE_SCROLLS.count > 0){
 				//we now count SOU fully, and just don't drop every 2nd one
 				UPGRADE_SCROLLS.count += UPGRADE_SCROLLS.count-1;
@@ -527,7 +528,7 @@ public class Dungeon {
 	}
 
 	public static boolean posNeeded() {
-		int defaultPosOnEachSet = Cheats.disableRestraintsOnStrengthPotions() ? 4 : 2;
+		int defaultPosOnEachSet = Cheats.maxNumberOfStrengthPotions();
 //2 POS each floor set
 		int posLeftThisSet = defaultPosOnEachSet - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * defaultPosOnEachSet);
 		if (posLeftThisSet <= 0) return false;
@@ -544,7 +545,7 @@ public class Dungeon {
 	}
 
 	public static boolean souNeeded() {
-		int defaultSouOnEachSet = Cheats.disableRestraintsOnUpgradeScrolls() ? 5 : 3;
+		int defaultSouOnEachSet = Cheats.maxNumberOfUpgradeScrolls();
 		int souLeftThisSet;
 		//3 SOU each floor set
 		souLeftThisSet = defaultSouOnEachSet - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * defaultSouOnEachSet);

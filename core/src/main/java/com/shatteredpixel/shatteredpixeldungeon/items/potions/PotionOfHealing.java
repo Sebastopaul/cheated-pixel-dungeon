@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
@@ -56,7 +57,7 @@ public class PotionOfHealing extends Potion {
 	}
 
 	public static void heal( Char ch ){
-		if (ch == Dungeon.hero && !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_HEALING)){
+		if (ch == Dungeon.hero && !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_HEALING)){
 			pharmacophobiaProc(Dungeon.hero);
 		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11

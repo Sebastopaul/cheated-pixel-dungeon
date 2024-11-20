@@ -1141,8 +1141,8 @@ public class Badges {
 		saveNeeded = true;
 	}
 	
-	public static void unlock( Badge badge ){
-		if (!isUnlocked(badge) && (badge.type == BadgeType.JOURNAL || Dungeon.customSeedText.isEmpty() || Cheats.allowBadges())){
+	public static void unlock( Badge badge ) {
+		if (!isUnlocked(badge) && (badge.type == BadgeType.JOURNAL || Dungeon.customSeedText.isEmpty() || Cheats.isCheated(Cheats.ALLOW_BADGES))){
 			global.add( badge );
 			saveNeeded = true;
 		}

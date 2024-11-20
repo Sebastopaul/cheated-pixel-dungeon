@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -266,7 +267,7 @@ public class Armor extends EquipableItem {
 		this.seal = seal;
 		if (seal.level() > 0){
 			//doesn't trigger upgrading logic such as affecting curses/glyphs
-			int newLevel = trueLevel()+1;
+			int newLevel = trueLevel() + (Cheats.isCheated(Cheats.USE_SEAL_LEVEL) ? seal.level() : 1);
 			level(newLevel);
 			Badges.validateItemLevelAquired(this);
 		}
@@ -307,11 +308,11 @@ public class Armor extends EquipableItem {
 	}
 
 	public final int DRMax(){
-		return DRMax(buffedLvl());
+		return DRMax(buffedLvl()) * Cheats.damageReductionMultiplier();
 	}
 
 	public int DRMax(int lvl){
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
 		}
 
@@ -319,16 +320,16 @@ public class Armor extends EquipableItem {
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {
-			return max;
+			return max * Cheats.damageReductionMultiplier();
 		}
 	}
 
 	public final int DRMin(){
-		return DRMin(buffedLvl());
+		return DRMin(buffedLvl()) * Cheats.damageReductionMultiplier();
 	}
 
 	public int DRMin(int lvl){
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.NO_ARMOR)){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
 		}
 
@@ -336,7 +337,7 @@ public class Armor extends EquipableItem {
 		if (lvl >= max){
 			return (lvl - max);
 		} else {
-			return lvl;
+			return lvl * Cheats.damageReductionMultiplier();
 		}
 	}
 	
@@ -428,7 +429,7 @@ public class Armor extends EquipableItem {
 			if (glyph == null){
 				inscribe( Glyph.random() );
 			}
-		} else if (glyph != null  && !Dungeon.isCheated()) {
+		} else if (glyph != null  && !Cheats.isCheated(Cheats.PREVENT_ENCHANT_LOSS)) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (glyphHardened) {
 				if (level() >= 6 && Random.Float(10) < Math.pow(2, level()-6)){
@@ -456,7 +457,7 @@ public class Armor extends EquipableItem {
 		
 		cursed = false;
 
-		if (seal != null && seal.level() == 0)
+		if (seal != null && seal.level() < Cheats.maxSealLevel())
 			seal.upgrade();
 
 		return super.upgrade();
@@ -686,11 +687,11 @@ public class Armor extends EquipableItem {
 	public static abstract class Glyph implements Bundlable {
 
 		public static final Class<?>[] common = new Class<?>[]{
-				Obfuscation.class, Swiftness.class, Viscosity.class, Dungeon.isCheated() ? (AntiMagic.class):Potential.class};
+				Obfuscation.class, Swiftness.class, Viscosity.class, Potential.class};
 
 		public static final Class<?>[] uncommon = new Class<?>[]{
 				Brimstone.class, Stone.class, Entanglement.class,
-				Repulsion.class, Camouflage.class, Dungeon.isCheated() ? (AntiMagic.class) : Flow.class };
+				Repulsion.class, Camouflage.class, Flow.class };
 
 		public static final Class<?>[] rare = new Class<?>[]{
 				Affection.class, AntiMagic.class, Thorns.class };

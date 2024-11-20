@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -70,7 +71,7 @@ public class WandOfPrismaticLight extends DamageWand {
 		affectMap(beam);
 		
 		if (Dungeon.level.viewDistance < 6 ){
-			if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.DARKNESS)){
+			if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.DARKNESS)){
 				Buff.prolong( curUser, Light.class, 2f + buffedLvl());
 			} else {
 				Buff.prolong( curUser, Light.class, 10f+buffedLvl()*5);
@@ -145,7 +146,7 @@ public class WandOfPrismaticLight extends DamageWand {
 
 	@Override
 	public String upgradeStat3(int level) {
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.DARKNESS)){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.DARKNESS)){
 			return Integer.toString(2 + level);
 		} else {
 			return Integer.toString(10 + 5*level);

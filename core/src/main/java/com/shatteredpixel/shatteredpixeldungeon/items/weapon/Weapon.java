@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
@@ -303,7 +304,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if (enchantment == null){
 				enchant(Enchantment.random());
 			}
-		} else if (enchantment != null) {
+		} else if (enchantment != null  && !Cheats.isCheated(Cheats.PREVENT_ENCHANT_LOSS)) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (enchantHardened){
 				if (level() >= 6 && Random.Float(10) < Math.pow(2, level()-6)){

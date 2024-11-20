@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -103,7 +104,7 @@ public abstract class ChampionEnemy extends Buff {
 			case 5:             buffCls = Growing.class;      break;
 		}
 
-		if (Dungeon.mobsToChampion <= 0 && !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
+		if (Dungeon.mobsToChampion <= 0 && !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
 			Buff.affect(m, buffCls);
 			m.state = m.WANDERING;
 		}

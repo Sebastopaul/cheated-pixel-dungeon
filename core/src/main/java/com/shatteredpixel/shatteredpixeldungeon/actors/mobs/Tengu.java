@@ -21,11 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.*;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -87,7 +83,7 @@ public class Tengu extends Mob {
 	{
 		spriteClass = TenguSprite.class;
 		
-		HP = HT = !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 250 : 200;
+		HP = HT = !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 250 : 200;
 		EXP = 20;
 		defenseSkill = 15;
 		
@@ -153,7 +149,7 @@ public class Tengu extends Mob {
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
-			if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(2*dmg/3f);
+			if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(2*dmg/3f);
 			else                                                    lock.addTime(dmg);
 		}
 
@@ -495,7 +491,7 @@ public class Tengu extends Mob {
 				abilityToUse = BOMB_ABILITY;
 			} else if (abilitiesUsed == 1){
 				abilityToUse = SHOCKER_ABILITY;
-			} else if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
+			} else if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
 				abilityToUse = Random.Int(2)*2; //0 or 2, can't roll fire ability with challenge
 			} else {
 				abilityToUse = Random.Int(3);
@@ -525,7 +521,7 @@ public class Tengu extends Mob {
 						break;
 				}
 				//always use the fire ability with the bosses challenge
-				if (abilityUsed && abilityToUse != FIRE_ABILITY && !Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+				if (abilityUsed && abilityToUse != FIRE_ABILITY && !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 					throwFire(Tengu.this, enemy);
 				}
 			}
@@ -533,7 +529,7 @@ public class Tengu extends Mob {
 		}
 		
 		//spend 1 less turn if seriously behind on ability uses
-		if (!Dungeon.isCheated() && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+		if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 			if (targetAbilityUses() - abilitiesUsed >= 4) {
 				//spend no time
 			} else {

@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -222,11 +223,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 
 	public int min(){
-		return min(buffedLvl());
+		return min(buffedLvl()) * Cheats.damageMultiplier();
 	}
 
 	public int max(){
-		return max(buffedLvl());
+		return max(buffedLvl()) * Cheats.damageMultiplier();
 	}
 
 	abstract public int min(int lvl);
