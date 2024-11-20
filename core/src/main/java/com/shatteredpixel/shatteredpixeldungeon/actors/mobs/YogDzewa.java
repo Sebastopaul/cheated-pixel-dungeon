@@ -442,7 +442,7 @@ public class YogDzewa extends Mob {
 
 		int targetPos = Dungeon.level.exit() + Dungeon.level.width();
 
-		if (!Dungeon.isChallenged(Challenges.STRONGER_BOSSES)
+		if ((Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) || !Dungeon.isChallenged(Challenges.STRONGER_BOSSES))
 				&& (Actor.findChar(targetPos) == null || Actor.findChar(targetPos) instanceof Sheep)){
 			fist.pos = targetPos;
 		} else if (Actor.findChar(targetPos-1) == null || Actor.findChar(targetPos-1) instanceof Sheep){

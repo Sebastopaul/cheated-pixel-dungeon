@@ -407,7 +407,7 @@ public class CavesBossLevel extends Level {
 				pylonsRemaining++;
 			}
 		}
-		int finalPylonsRemaining = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 1 : 2;
+		int finalPylonsRemaining = !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 1 : 2;
 		if (pylonsRemaining > finalPylonsRemaining) {
 			blobs.get(PylonEnergy.class).fullyClear();
 		}

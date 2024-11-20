@@ -449,7 +449,7 @@ public class Tengu extends Mob {
 			
 			abilityCooldown--;
 			
-			if (targetAbilityUses() - abilitiesUsed >= 4 && !Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+			if (targetAbilityUses() - abilitiesUsed >= 4 && (Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) || !Dungeon.isChallenged(Challenges.STRONGER_BOSSES))){
 				//Very behind in ability uses, use one right away!
 				//but not on bosses challenge, we already cast quickly then
 				abilityCooldown = 0;
