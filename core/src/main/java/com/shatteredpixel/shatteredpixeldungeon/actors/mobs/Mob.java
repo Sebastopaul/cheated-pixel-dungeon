@@ -21,11 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.*;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
@@ -1087,7 +1083,7 @@ public abstract class Mob extends Char {
 				target = Dungeon.level.randomDestination( Mob.this );
 			}
 
-			if (alignment == Alignment.ENEMY && Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)) {
+			if (alignment == Alignment.ENEMY && !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)) {
 				for (Mob mob : Dungeon.level.mobs) {
 					if (mob.paralysed <= 0
 							&& Dungeon.level.distance(pos, mob.pos) <= 8
@@ -1125,7 +1121,7 @@ public abstract class Mob extends Char {
 			state = HUNTING;
 			target = enemy.pos;
 			
-			if (alignment == Alignment.ENEMY && Dungeon.isChallenged( Challenges.SWARM_INTELLIGENCE )) {
+			if (alignment == Alignment.ENEMY && !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged( Challenges.SWARM_INTELLIGENCE )) {
 				for (Mob mob : Dungeon.level.mobs) {
 					if (mob.paralysed <= 0
 							&& Dungeon.level.distance(pos, mob.pos) <= 8

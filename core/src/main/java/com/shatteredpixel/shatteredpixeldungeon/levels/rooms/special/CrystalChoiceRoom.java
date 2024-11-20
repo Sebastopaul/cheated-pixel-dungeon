@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -130,6 +131,9 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		chest.autoExplored = true;
 
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		if (Cheats.isCheated(Cheats.SPAWN_ALL_CRYSTAL_KEYS)) {
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		}
 
 		entrance().set( Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey( Dungeon.depth ) );

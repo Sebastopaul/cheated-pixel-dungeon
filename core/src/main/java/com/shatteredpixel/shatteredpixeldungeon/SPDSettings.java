@@ -49,15 +49,15 @@ public class SPDSettings extends GameSettings {
 	
 	//Display
 	
-	public static final String KEY_FULLSCREEN	= "fullscreen";
-	public static final String KEY_LANDSCAPE	= "landscape";
-	public static final String KEY_POWER_SAVER 	= "power_saver";
-	public static final String KEY_ZOOM			= "zoom";
-	public static final String KEY_BRIGHTNESS	= "brightness";
-	public static final String KEY_GRID 	    = "visual_grid";
-	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
-	public static final String KEY_SCREEN_SHAKE = "screen_shake";
-	
+	public static final String KEY_FULLSCREEN	 = "fullscreen";
+	public static final String KEY_LANDSCAPE	 = "landscape";
+	public static final String KEY_POWER_SAVER 	 = "power_saver";
+	public static final String KEY_ZOOM			 = "zoom";
+	public static final String KEY_BRIGHTNESS	 = "brightness";
+	public static final String KEY_GRID 	     = "visual_grid";
+	public static final String KEY_CAMERA_FOLLOW = "camera_follow";
+	public static final String KEY_SCREEN_SHAKE  = "screen_shake";
+
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 		
@@ -133,18 +133,18 @@ public class SPDSettings extends GameSettings {
 	public static int screenShake() {
 		return getInt( KEY_SCREEN_SHAKE, 2, 0, 4 );
 	}
-	
+
 	//Interface
 
-	public static final String KEY_UI_SIZE 	    = "full_ui";
-	public static final String KEY_SCALE		= "scale";
-	public static final String KEY_QUICK_SWAP	= "quickslot_swapper";
-	public static final String KEY_FLIPTOOLBAR	= "flipped_ui";
-	public static final String KEY_FLIPTAGS 	= "flip_tags";
-	public static final String KEY_BARMODE		= "toolbar_mode";
-	public static final String KEY_SLOTWATERSKIN= "quickslot_waterskin";
-	public static final String KEY_SYSTEMFONT	= "system_font";
-	public static final String KEY_VIBRATION    = "vibration";
+	public static final String KEY_UI_SIZE 	     = "full_ui";
+	public static final String KEY_SCALE		 = "scale";
+	public static final String KEY_QUICK_SWAP	 = "quickslot_swapper";
+	public static final String KEY_FLIPTOOLBAR	 = "flipped_ui";
+	public static final String KEY_FLIPTAGS 	 = "flip_tags";
+	public static final String KEY_BARMODE		 = "toolbar_mode";
+	public static final String KEY_SLOTWATERSKIN = "quickslot_waterskin";
+	public static final String KEY_SYSTEMFONT	 = "system_font";
+	public static final String KEY_VIBRATION     = "vibration";
 
 	//0 = mobile, 1 = mixed (large without inventory in main UI), 2 = large
 	public static void interfaceSize( int value ){
@@ -223,14 +223,14 @@ public class SPDSettings extends GameSettings {
 
 	//Game State
 	
-	public static final String KEY_LAST_CLASS	= "last_class";
-	public static final String KEY_CHALLENGES	= "challenges";
-	public static final String KEY_CUSTOM_SEED	= "custom_seed";
-	public static final String KEY_LAST_DAILY	= "last_daily";
-	public static final String KEY_INTRO		= "intro";
+	public static final String KEY_LAST_CLASS	  = "last_class";
+	public static final String KEY_CHALLENGES	  = "challenges";
+	public static final String KEY_CUSTOM_SEED	  = "custom_seed";
+	public static final String KEY_LAST_DAILY	  = "last_daily";
+	public static final String KEY_INTRO		  = "intro";
 
-	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
-	public static final String KEY_VICTORY_NAGGED= "victory_nagged";
+	public static final String KEY_SUPPORT_NAGGED = "support_nagged";
+	public static final String KEY_VICTORY_NAGGED = "victory_nagged";
 	
 	public static void intro( boolean value ) {
 		put( KEY_INTRO, value );
@@ -264,7 +264,7 @@ public class SPDSettings extends GameSettings {
 		return getString( KEY_CUSTOM_SEED, "", 20);
 	}
 
-	public static void lastDaily( long value ){
+	public static void lastDaily( long value ) {
 		put( KEY_LAST_DAILY, value );
 	}
 
@@ -277,7 +277,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean supportNagged() {
-		return getBoolean(KEY_SUPPORT_NAGGED, false);
+		return getBoolean( KEY_SUPPORT_NAGGED, false);
 	}
 
 	public static void victoryNagged( boolean value ) {
@@ -285,7 +285,27 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean victoryNagged() {
-		return getBoolean(KEY_VICTORY_NAGGED, false);
+		return getBoolean( KEY_VICTORY_NAGGED, false);
+	}
+
+	//Cheat Mode
+
+	public static final String KEY_BOOL_CHEATS = "bool_cheats";
+
+	public static void boolCheats( int value ) {
+		put( KEY_BOOL_CHEATS, value );
+	}
+
+	public static int boolCheats() {
+		return getInt( KEY_BOOL_CHEATS, 0, 0, Cheats.MAX_VALUE );
+	}
+
+	public static void cheatSlider( String key, int value ) {
+		put( key, value );
+	}
+
+	public static int cheatSlider( String key, int defaultValue, int min, int max ) {
+		return getInt( key, defaultValue, min, max );
 	}
 
 	//Input

@@ -21,11 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Bones;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.*;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -126,7 +122,7 @@ public class CavesBossLevel extends Level {
 			if (map[i] == Terrain.EMPTY) {
 				if (patch[i - 14*width()]){
 					map[i] = Terrain.WATER;
-				} else if (Random.Int(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 4 : 8) == 0){
+				} else if (Random.Int(!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 4 : 8) == 0){
 					map[i] = Terrain.INACTIVE_TRAP;
 				}
 			}

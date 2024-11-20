@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
@@ -84,6 +85,9 @@ public class CrystalVaultRoom extends SpecialRoom {
 		Painter.set(level, i2Pos, Terrain.PEDESTAL);
 
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		if (Cheats.isCheated(Cheats.SPAWN_ALL_CRYSTAL_KEYS)) {
+			level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		}
 		
 		entrance().set( Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey( Dungeon.depth ) );

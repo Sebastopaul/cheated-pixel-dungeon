@@ -175,6 +175,7 @@ public class Dungeon {
 
 			//pre-v2.2.0 saves
 			if (Dungeon.version < 750
+					&& !Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS)
 					&& Dungeon.isChallenged(Challenges.NO_SCROLLS)
 					&& UPGRADE_SCROLLS.count > 0){
 				//we now count SOU fully, and just don't drop every 2nd one
@@ -246,19 +247,21 @@ public class Dungeon {
 		//offset seed slightly to avoid output patterns
 		Random.pushGenerator( seed+1 );
 
-			Scroll.initLabels();
-			Potion.initColors();
-			Ring.initGems();
+		Scroll.initLabels();
+		Potion.initColors();
+		Ring.initGems();
 
-			SpecialRoom.initForRun();
-			SecretRoom.initForRun();
+		SpecialRoom.initForRun();
+		SecretRoom.initForRun();
 
-			Generator.fullReset();
+		Generator.fullReset();
 
 		Random.resetGenerators();
 		
 		Statistics.reset();
 		Notes.reset();
+
+		Cheats.reset();
 
 		quickslot.reset();
 		QuickSlotButton.reset();
@@ -525,8 +528,9 @@ public class Dungeon {
 	}
 
 	public static boolean posNeeded() {
-		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
+		int defaultPosOnEachSet = Cheats.maxNumberOfStrengthPotions();
+//2 POS each floor set
+		int posLeftThisSet = defaultPosOnEachSet - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * defaultPosOnEachSet);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -539,11 +543,12 @@ public class Dungeon {
 		else return false;
 
 	}
-	
+
 	public static boolean souNeeded() {
+		int defaultSouOnEachSet = Cheats.maxNumberOfUpgradeScrolls();
 		int souLeftThisSet;
 		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+		souLeftThisSet = defaultSouOnEachSet - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * defaultSouOnEachSet);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -603,6 +608,7 @@ public class Dungeon {
 	private static final String DAILY	    = "daily";
 	private static final String DAILY_REPLAY= "daily_replay";
 	private static final String CHALLENGES	= "challenges";
+	private static final String CHEAT_MODE	= "cheat_mode";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -673,7 +679,9 @@ public class Dungeon {
 				bundleArr[i] = generatedLevels.get(i);
 			}
 			bundle.put( GENERATED_LEVELS, bundleArr);
-			
+
+			Cheats.save( bundle );
+
 			Scroll.save( bundle );
 			Potion.save( bundle );
 			Ring.save( bundle );
@@ -743,6 +751,7 @@ public class Dungeon {
 
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
 		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
+		Cheats.restore( bundle );
 		
 		Dungeon.level = null;
 		Dungeon.depth = -1;

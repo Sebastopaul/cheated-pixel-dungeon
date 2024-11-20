@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -367,7 +368,7 @@ public class Item implements Bundlable {
 
 	//returns the persistant level of the item, only affected by modifiers which are persistent (e.g. curse infusion)
 	public int level(){
-		return level;
+		return level + Cheats.additionalLevelsOnItems();
 	}
 	
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions

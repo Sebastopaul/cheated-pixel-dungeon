@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import com.shatteredpixel.shatteredpixeldungeon.Cheats;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -333,8 +334,8 @@ public class Generator {
 					PotionOfParalyticGas.class,
 					PotionOfPurity.class,
 					PotionOfExperience.class};
-			POTION.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-			POTION.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
+			POTION.defaultProbs = new float[]{ Cheats.additionalProbsForRarePotions(), 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, Cheats.additionalProbsForRarePotions() };
+			POTION.defaultProbs2 = new float[]{ Cheats.additionalProbsForRarePotions(), 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, Cheats.additionalProbsForRarePotions() };
 			POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{
@@ -367,8 +368,9 @@ public class Generator {
 					ScrollOfTerror.class,
 					ScrollOfTransmutation.class
 			};
-			SCROLL.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-			SCROLL.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
+
+			SCROLL.defaultProbs  = new float[]{Cheats.additionalProbsForRareScrolls(), 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, Cheats.additionalProbsForRareScrolls() };
+			SCROLL.defaultProbs2 = new float[]{Cheats.additionalProbsForRareScrolls(), 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, Cheats.additionalProbsForRareScrolls() };
 			SCROLL.probs = SCROLL.defaultProbs.clone();
 			
 			STONE.classes = new Class<?>[]{

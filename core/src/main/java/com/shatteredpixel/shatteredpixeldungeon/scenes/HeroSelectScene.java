@@ -31,22 +31,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
-import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.ui.*;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndChallenges;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndHeroInfo;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
+import com.shatteredpixel.shatteredpixeldungeon.windows.*;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -593,10 +580,11 @@ public class HeroSelectScene extends PixelScene {
 
 			buttons = new ArrayList<>();
 			spacers = new ArrayList<>();
+
 			StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6){
 				@Override
 				protected void onClick() {
-					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
+					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()) {
 						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
 								Icons.get(Icons.SEED),
 								Messages.get(HeroSelectScene.class, "custom_seed"),
@@ -783,6 +771,15 @@ public class HeroSelectScene extends PixelScene {
 				add(spc);
 				spacers.add(spc);
 			}
+
+			StyledButton cheatButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "cheat"), 6) {
+				@Override
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new WndCheats(SPDSettings.boolCheats(), true));
+				}
+			};
+			buttons.add(cheatButton);
+			add(cheatButton);
 		}
 
 		@Override

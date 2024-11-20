@@ -21,11 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.*;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
@@ -101,7 +97,7 @@ public class HornOfPlenty extends Artifact {
 			else {
 				//consume as much food as it takes to be full, to a minimum of 1
 				int satietyPerCharge = (int) (Hunger.STARVING/5f);
-				if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+				if (!Cheats.isCheated(Cheats.DISABLE_CHALLENGES_EFFECTS) && Dungeon.isChallenged(Challenges.NO_FOOD)){
 					satietyPerCharge /= 3;
 				}
 
