@@ -29,26 +29,37 @@ import com.cheatedpixel.cheatedpixeldungeon.*;
 import com.cheatedpixel.cheatedpixeldungeon.messages.Messages;
 import com.cheatedpixel.cheatedpixeldungeon.scenes.PixelScene;
 import com.cheatedpixel.cheatedpixeldungeon.ui.*;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
 
 public class WndCheats extends Window {
 
-	private static final int WIDTH		= 240;
+	private static final int WIDTH		= 120;
+	private static final int HEIGHT		= 180;
 	private static final int TTL_HEIGHT = 16;
-	private static final int BTN_HEIGHT = 16;
-	private static final int GAP        = 1;
+	private static final int BTN_WIDTH = 16;
+	private static final int BTN_HEIGHT = 20;
+	private static final int GAP        = 2;
 
-	private boolean editable;
+	private final boolean editable;
 	private ArrayList<CheckBox> boxes;
+	private final Component content;
 	private float pos = TTL_HEIGHT;
 
 	public WndCheats(int checked, boolean editable ) {
-
 		super();
 
 		this.editable = editable;
+
+		resize( WIDTH, HEIGHT );
+
+		ScrollPane scroll = new ScrollPane( new Component() );
+		add( scroll );
+
+		content = scroll.content();
+		content.clear();
 
 		RenderedTextBlock title = PixelScene.renderTextBlock( Messages.get(this, "title"), 12 );
 		title.hardlight( TITLE_COLOR );
@@ -57,10 +68,16 @@ public class WndCheats extends Window {
 				(TTL_HEIGHT - title.height()) / 2
 		);
 		PixelScene.align(title);
-		add( title );
+		content.add( title );
 
 		addCheckBoxes(checked);
+		pos += GAP;
 		addSliders();
+
+		content.setSize( WIDTH, pos + 10 );
+
+		scroll.setRect( 0, 0, WIDTH, HEIGHT);
+		scroll.scrollTo( 0, 0 );
 	}
 
 	@Override
@@ -93,8 +110,6 @@ public class WndCheats extends Window {
 			updatePosAndAddInfos(cb, cheat, i);
 			boxes.add(cb);
 		}
-
-		resize( WIDTH, (int)pos );
 	}
 
 	private void addSliders() {
@@ -117,17 +132,15 @@ public class WndCheats extends Window {
 
 			updatePosAndAddInfos(os, cheat, i);
 		}
-
-		resize( WIDTH, (int)pos );
 	}
 
 	private void updatePosAndAddInfos(Component component, String cheat, int i) {
 		if (i > 0) {
 			pos += GAP;
 		}
-		component.setRect( 0, pos, WIDTH-16, BTN_HEIGHT );
+		component.setRect( 0, pos, WIDTH - BTN_WIDTH, BTN_HEIGHT );
 
-		add(component);
+		content.add(component);
 
 		IconButton info = new IconButton(Icons.get(Icons.INFO)){
 			@Override
@@ -138,8 +151,8 @@ public class WndCheats extends Window {
 				);
 			}
 		};
-		info.setRect(component.right(), pos, 16, BTN_HEIGHT);
-		add(info);
+		info.setRect(component.right(), pos, BTN_WIDTH, BTN_HEIGHT);
+		content.add(info);
 
 		pos = component.bottom();
 	}
