@@ -237,7 +237,10 @@ public class Armor extends EquipableItem {
 		detach(hero.belongings.backpack);
 
 		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
-			
+			if (Cheats.isCheated(Cheats.AUTO_ANTI_MAGIC_GLYPH)) {
+				glyph = new AntiMagic();
+			}
+
 			hero.belongings.armor = this;
 			
 			cursedKnown = true;
