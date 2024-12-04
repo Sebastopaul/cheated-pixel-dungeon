@@ -99,15 +99,23 @@ public class AboutScene extends PixelScene {
 				"https://s9menine.itch.io");
 		charlie.setRect(alex.right(), alex.top(), colWidth/2f, 0);
 		content.add(charlie);
-
+		CreditsBlock gunPatrol = new CreditsBlock(false, Window.SHPX_COLOR,
+				"Cheated arts:",
+				Icons.GUNPATROL.get(),
+				"Gunpatrol",
+				"Link coming soon...",
+				"https://www.youtube.com/watch?v=XfELJU1mRMg");
+		gunPatrol.setRect(alex.left(), alex.bottom() + 5, colWidth/2f, 0);
+		content.add(gunPatrol);
 		CreditsBlock kristjan = new CreditsBlock(false, Window.SHPX_COLOR,
 				"Music:",
 				Icons.KRISTJAN.get(),
 				"Kristjan Haaristo",
 				"youtube.com/@kristjan...",
 				"https://www.youtube.com/@kristjanthomashaaristo");
-		kristjan.setRect(alex.right() - colWidth/4f, alex.bottom() + 5, colWidth/2f, 0);
+		kristjan.setRect(gunPatrol.right(), gunPatrol.top(), colWidth/2f, 0);
 		content.add(kristjan);
+
 
 		//*** Pixel Dungeon Credits ***
 

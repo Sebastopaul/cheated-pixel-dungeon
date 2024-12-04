@@ -130,6 +130,7 @@ public enum Icons {
 	WATA,
 	CELESTI,
 	KRISTJAN,
+	GUNPATROL,
 	CUBE_CODE,
 	PURIGRO,
 	ARCNOR;
@@ -411,6 +412,10 @@ public enum Icons {
 				break;
 			case KRISTJAN:
 				icon.frame( icon.texture.uvRectBySize( 64, 96, 32, 32 ) );
+				icon.scale.set(PixelScene.align(0.49f));
+				break;
+			case GUNPATROL:
+				icon.frame( icon.texture.uvRectBySize( 16, 112, 16, 16 ) );
 				icon.scale.set(PixelScene.align(0.49f));
 				break;
 			case ARCNOR:
