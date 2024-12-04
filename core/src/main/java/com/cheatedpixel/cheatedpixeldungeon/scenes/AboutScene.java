@@ -97,14 +97,14 @@ public class AboutScene extends PixelScene {
 				"Celesti",
 				"s9menine.itch.io",
 				"https://s9menine.itch.io");
-		charlie.setRect(alex.right(), alex.top(), colWidth/2f, 0);
+		charlie.setRect(alex.right() + 10, alex.top(), colWidth/2f, 0);
 		content.add(charlie);
 		CreditsBlock gunPatrol = new CreditsBlock(false, Window.SHPX_COLOR,
 				"Cheated arts:",
 				Icons.GUNPATROL.get(),
 				"Gunpatrol",
-				"Link coming soon...",
-				"https://www.youtube.com/watch?v=XfELJU1mRMg");
+				"instagram.com/gunpatrol_",
+				"https://www.instagram.com/gunpatrol_");
 		gunPatrol.setRect(alex.left(), alex.bottom() + 5, colWidth/2f, 0);
 		content.add(gunPatrol);
 		CreditsBlock kristjan = new CreditsBlock(false, Window.SHPX_COLOR,
@@ -113,7 +113,7 @@ public class AboutScene extends PixelScene {
 				"Kristjan Haaristo",
 				"youtube.com/@kristjan...",
 				"https://www.youtube.com/@kristjanthomashaaristo");
-		kristjan.setRect(gunPatrol.right(), gunPatrol.top(), colWidth/2f, 0);
+		kristjan.setRect(gunPatrol.right() + 10, gunPatrol.top(), colWidth/2f, 0);
 		content.add(kristjan);
 
 
