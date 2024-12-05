@@ -77,6 +77,7 @@ public enum Icons {
 	SCROLL_COLOR,
 	COPY,
 	PASTE,
+	CHEATS_GREY,
 
 	BACKPACK_LRG,
 	TALENT,
@@ -86,6 +87,7 @@ public enum Icons {
 	CATALOG,
 	ALCHEMY,
 	GRASS,
+	CHEATS_COLOR,
 
 	STAIRS,
 	STAIRS_CHASM,
@@ -131,6 +133,7 @@ public enum Icons {
 	CELESTI,
 	KRISTJAN,
 	CUBE_CODE,
+	GUNPATROL,
 	PURIGRO,
 	ARCNOR;
 
@@ -264,6 +267,9 @@ public enum Icons {
 			case PASTE:
 				icon.frame( icon.texture.uvRectBySize( 192, 32, 13, 13 ) );
 				break;
+			case CHEATS_GREY:
+				icon.frame( icon.texture.uvRectBySize( 208, 32, 16, 16 ) );
+				break;
 
 			case BACKPACK_LRG:
 				icon.frame( icon.texture.uvRectBySize( 0, 48, 16, 16 ) );
@@ -288,6 +294,9 @@ public enum Icons {
 				break;
 			case GRASS:
 				icon.frame( icon.texture.uvRectBySize( 112, 48, 16, 16 ) );
+				break;
+			case CHEATS_COLOR:
+				icon.frame( icon.texture.uvRectBySize( 208, 48, 16, 16 ) );
 				break;
 
 			case STAIRS:
@@ -425,7 +434,10 @@ public enum Icons {
 				icon.frame( icon.texture.uvRectBySize( 160, 96, 27, 30 ) );
 				icon.scale.set(PixelScene.align(0.49f));
 				break;
-
+			case GUNPATROL:
+				icon.frame( icon.texture.uvRectBySize( 192, 96, 32, 32 ) );
+				icon.scale.set(PixelScene.align(0.49f));
+				break;
 		}
 		return icon;
 	}

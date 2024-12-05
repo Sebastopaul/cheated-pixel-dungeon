@@ -25,11 +25,8 @@ import com.cheatedpixel.cheatedpixeldungeon.Cheats;
 import com.cheatedpixel.cheatedpixeldungeon.SPDSettings;
 import com.cheatedpixel.cheatedpixeldungeon.ShatteredPixelDungeon;
 import com.cheatedpixel.cheatedpixeldungeon.ui.*;
-import com.cheatedpixel.cheatedpixeldungeon.*;
 import com.cheatedpixel.cheatedpixeldungeon.messages.Messages;
 import com.cheatedpixel.cheatedpixeldungeon.scenes.PixelScene;
-import com.cheatedpixel.cheatedpixeldungeon.ui.*;
-import com.watabou.noosa.Camera;
 import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;

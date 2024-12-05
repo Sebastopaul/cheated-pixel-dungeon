@@ -364,8 +364,10 @@ public class HeroSelectScene extends PixelScene {
 	private void updateOptionsColor(){
 		if (!SPDSettings.customSeed().isEmpty()){
 			btnOptions.icon().hardlight(1f, 1.5f, 0.67f);
-		} else if (SPDSettings.challenges() != 0){
+		} else if (SPDSettings.challenges() != 0) {
 			btnOptions.icon().hardlight(2f, 1.33f, 0.5f);
+		} else if (SPDSettings.boolCheats() % 2 != 0) {
+			btnOptions.icon().hardlight(2f, 0.5f, 4f);
 		} else {
 			btnOptions.icon().resetColor();
 		}
@@ -768,20 +770,28 @@ public class HeroSelectScene extends PixelScene {
 			add(challengeButton);
 			buttons.add(challengeButton);
 
+			StyledButton cheatButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "cheat"), 6) {
+				@Override
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new WndCheats(SPDSettings.boolCheats(), true) {
+						public void onBackPressed() {
+							super.onBackPressed();
+							icon(Icons.get(SPDSettings.boolCheats() % 2 != 0 ? Icons.CHEATS_COLOR : Icons.CHEATS_GREY));
+							updateOptionsColor();
+						}
+					} );
+				}
+			};
+			cheatButton.leftJustify = true;
+			cheatButton.icon(Icons.get(SPDSettings.boolCheats() % 2 != 0 ? Icons.CHEATS_COLOR : Icons.CHEATS_GREY));
+			add(cheatButton);
+			buttons.add(cheatButton);
+
 			for (int i = 1; i < buttons.size(); i++){
 				ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
 				add(spc);
 				spacers.add(spc);
 			}
-
-			StyledButton cheatButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "cheat"), 6) {
-				@Override
-				protected void onClick() {
-					ShatteredPixelDungeon.scene().addToFront(new WndCheats(SPDSettings.boolCheats(), true));
-				}
-			};
-			buttons.add(cheatButton);
-			add(cheatButton);
 		}
 
 		@Override
