@@ -148,7 +148,7 @@ public class Cheats {
     }
 
     public static int damageMultiplier() {
-        return isCheated(ENABLED) ? damageMultiplier : 1;
+        return isCheated(ENABLED) ? 1 + damageMultiplier / 10 : 1;
     }
 
     public static void damageReductionMultiplier(int value) {
@@ -156,7 +156,7 @@ public class Cheats {
     }
 
     public static int damageReductionMultiplier() {
-        return isCheated(ENABLED) ? damageReductionMultiplier : 1;
+        return isCheated(ENABLED) ? 1 + damageReductionMultiplier / 10 : 1;
     }
 
     public static void additionalLevelsOnItems(int value) {
