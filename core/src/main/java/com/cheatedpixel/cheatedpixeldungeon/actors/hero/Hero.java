@@ -386,6 +386,20 @@ public class Hero extends Char {
 			return 0;
 		} else if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
 					&& buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
+			if (Cheats.isCheated(Cheats.COMPLETE_SKILLS_WITH_EXP_POTION)) {
+				switch (tier) {
+					case 1:
+						return 3;
+					case 2:
+						return 4;
+					case 3:
+						return 7;
+					case 4:
+						return 6;
+					default:
+						return 2;
+				}
+			}
 			return 2;
 		} else {
 			return 0;

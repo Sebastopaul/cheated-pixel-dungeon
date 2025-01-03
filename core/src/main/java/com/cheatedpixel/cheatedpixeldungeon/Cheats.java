@@ -16,8 +16,9 @@ public class Cheats {
     public static final int USE_SEAL_LEVEL = 16;
     public static final int SPAWN_ALL_CRYSTAL_KEYS = 32;
     public static final int AUTO_ANTI_MAGIC_GLYPH = 64;
+    public static final int COMPLETE_SKILLS_WITH_EXP_POTION = 128;
 
-    public static final int MAX_VALUE = 127;
+    public static final int MAX_VALUE = 255;
 
     public static final String[] BOOL_NAME_IDS = {
         "enabled",
@@ -27,6 +28,7 @@ public class Cheats {
         "use_seal_level",
         "spawn_all_crystal_keys",
         "auto_anti_magic_glyph",
+        "complete_skills_with_exp_potion",
     };
 
     public static final int[] BOOL_MASKS = {
@@ -37,6 +39,7 @@ public class Cheats {
             USE_SEAL_LEVEL,
             SPAWN_ALL_CRYSTAL_KEYS,
             AUTO_ANTI_MAGIC_GLYPH,
+            COMPLETE_SKILLS_WITH_EXP_POTION,
     };
 
     public static final String[] SLIDERS_NAME_IDS = {
