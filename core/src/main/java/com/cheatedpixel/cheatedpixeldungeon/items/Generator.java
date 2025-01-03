@@ -201,10 +201,9 @@ import com.cheatedpixel.cheatedpixeldungeon.plants.Starflower;
 import com.cheatedpixel.cheatedpixeldungeon.plants.Stormvine;
 import com.cheatedpixel.cheatedpixeldungeon.plants.Sungrass;
 import com.cheatedpixel.cheatedpixeldungeon.plants.Swiftthistle;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.GameMath;
-import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
+import com.cheatedpixel.cheatedpixeldungeon.utils.GLog;
+import com.watabou.utils.*;
+import jdk.jpackage.internal.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -334,8 +333,8 @@ public class Generator {
 					PotionOfParalyticGas.class,
 					PotionOfPurity.class,
 					PotionOfExperience.class};
-			POTION.defaultProbs = new float[]{ Cheats.additionalProbsForRarePotions(), 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, Cheats.additionalProbsForRarePotions() };
-			POTION.defaultProbs2 = new float[]{ Cheats.additionalProbsForRarePotions(), 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, Cheats.additionalProbsForRarePotions() };
+			POTION.defaultProbs = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 0 };
+			POTION.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1 };
 			POTION.probs = POTION.defaultProbs.clone();
 			
 			SEED.classes = new Class<?>[]{
@@ -369,8 +368,8 @@ public class Generator {
 					ScrollOfTransmutation.class
 			};
 
-			SCROLL.defaultProbs  = new float[]{Cheats.additionalProbsForRareScrolls(), 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, Cheats.additionalProbsForRareScrolls() };
-			SCROLL.defaultProbs2 = new float[]{Cheats.additionalProbsForRareScrolls(), 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, Cheats.additionalProbsForRareScrolls() };
+			SCROLL.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 0 };
+			SCROLL.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1 };
 			SCROLL.probs = SCROLL.defaultProbs.clone();
 			
 			STONE.classes = new Class<?>[]{
@@ -698,6 +697,12 @@ public class Generator {
 				//if we're out of artifacts, return a ring instead.
 				return item != null ? item : random(Category.RING);
 			default:
+				DeviceCompat.log("GENERATOR", "RANDOM: Category: " + cat.name());
+				DeviceCompat.log("GENERATOR", "RANDOM: probs: " + Arrays.toString(cat.defaultProbs));
+				DeviceCompat.log("GENERATOR", "RANDOM: defaultProbs: " + Arrays.toString(cat.defaultProbs));
+				DeviceCompat.log("GENERATOR", "RANDOM: defaultProbs2: " + Arrays.toString(cat.defaultProbs2));
+				DeviceCompat.log("GENERATOR", "RANDOM: defaultProbsTotal: " + Arrays.toString(cat.defaultProbsTotal));
+
 				if (cat.defaultProbs != null && cat.seed != null){
 					Random.pushGenerator(cat.seed);
 					for (int i = 0; i < cat.dropped; i++) Random.Long();

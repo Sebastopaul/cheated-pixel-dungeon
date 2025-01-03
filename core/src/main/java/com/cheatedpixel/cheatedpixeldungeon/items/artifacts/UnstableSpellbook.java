@@ -22,6 +22,7 @@
 package com.cheatedpixel.cheatedpixeldungeon.items.artifacts;
 
 import com.cheatedpixel.cheatedpixeldungeon.Assets;
+import com.cheatedpixel.cheatedpixeldungeon.Cheats;
 import com.cheatedpixel.cheatedpixeldungeon.Dungeon;
 import com.cheatedpixel.cheatedpixeldungeon.actors.buffs.Blindness;
 import com.cheatedpixel.cheatedpixeldungeon.actors.buffs.Buff;
@@ -91,7 +92,9 @@ public class UnstableSpellbook extends Artifact {
 
 			i = Random.chances(probs);
 		}
-		scrolls.remove(ScrollOfTransmutation.class);
+		if (Cheats.additionalProbsForRareScrolls() == 0) {
+			scrolls.remove(ScrollOfTransmutation.class);
+		}
 	}
 
 	@Override

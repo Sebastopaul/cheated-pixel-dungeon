@@ -22,6 +22,7 @@
 package com.cheatedpixel.cheatedpixeldungeon.actors.mobs;
 
 import com.cheatedpixel.cheatedpixeldungeon.Assets;
+import com.cheatedpixel.cheatedpixeldungeon.Cheats;
 import com.cheatedpixel.cheatedpixeldungeon.Dungeon;
 import com.cheatedpixel.cheatedpixeldungeon.actors.Actor;
 import com.cheatedpixel.cheatedpixeldungeon.actors.Char;
@@ -174,7 +175,7 @@ public class Succubus extends Mob {
 		Class<?extends Scroll> loot;
 		do{
 			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+		} while ((loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class) && Cheats.additionalProbsForRareScrolls() == 0);
 
 		return Reflection.newInstance(loot);
 	}

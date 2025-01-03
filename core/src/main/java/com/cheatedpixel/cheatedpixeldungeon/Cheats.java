@@ -1,6 +1,11 @@
 package com.cheatedpixel.cheatedpixeldungeon;
 
+import com.cheatedpixel.cheatedpixeldungeon.items.Generator;
+import com.cheatedpixel.cheatedpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.DeviceCompat;
+
+import java.util.Arrays;
 
 public class Cheats {
 
@@ -77,6 +82,8 @@ public class Cheats {
         damageReductionMultiplier     = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_DEF_VALUES[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_MIN_VALUES[DAMAGE_REDUCTION_MULTIPLIER], SLIDERS_MAX_VALUES[DAMAGE_REDUCTION_MULTIPLIER]);
         additionalLevelsOnItems       = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[ADDITIONAL_LEVELS_ITEMS], SLIDERS_DEF_VALUES[ADDITIONAL_LEVELS_ITEMS], SLIDERS_MIN_VALUES[ADDITIONAL_LEVELS_ITEMS], SLIDERS_MAX_VALUES[ADDITIONAL_LEVELS_ITEMS]);
         maxSealLevel                  = SPDSettings.cheatSlider(SLIDERS_NAME_IDS[MAX_SEAL_LEVEL], SLIDERS_DEF_VALUES[MAX_SEAL_LEVEL], SLIDERS_MIN_VALUES[MAX_SEAL_LEVEL], SLIDERS_MAX_VALUES[MAX_SEAL_LEVEL]);
+
+        setGeneratorValues();
     }
 
     public static void save(Bundle bundle) {
@@ -101,6 +108,7 @@ public class Cheats {
         damageReductionMultiplier     = bundle.getInt(SLIDERS_NAME_IDS[DAMAGE_REDUCTION_MULTIPLIER]);
         additionalLevelsOnItems       = bundle.getInt(SLIDERS_NAME_IDS[ADDITIONAL_LEVELS_ITEMS]);
         maxSealLevel                  = bundle.getInt(SLIDERS_NAME_IDS[MAX_SEAL_LEVEL]);
+        setGeneratorValues();
     }
 
     public static void boolCheats( int value ) {
@@ -135,12 +143,20 @@ public class Cheats {
         return isCheated(ENABLED) ? additionalProbsForRareScrolls : 0;
     }
 
+    public static int additionalProbsForRareScrolls(boolean isOne) {
+        return isCheated(ENABLED) ? additionalProbsForRareScrolls : isOne ? 1 : 0;
+    }
+
     public static void additionalProbsForRarePotions(int value) {
         additionalProbsForRarePotions = value;
     }
 
     public static int additionalProbsForRarePotions() {
         return isCheated(ENABLED) ? additionalProbsForRarePotions : 0;
+    }
+
+    public static int additionalProbsForRarePotions(boolean isOne) {
+        return isCheated(ENABLED) ? additionalProbsForRarePotions : isOne ? 1 : 0;
     }
 
     public static void damageMultiplier(int value) {
@@ -173,5 +189,28 @@ public class Cheats {
 
     public static int maxSealLevel() {
         return isCheated(ENABLED) ? maxSealLevel : 1;
+    }
+
+    private static void setGeneratorValues() {
+        int scrollLength = Generator.Category.SCROLL.classes.length;
+        int potionsLength = Generator.Category.POTION.classes.length;
+
+        Generator.Category.SCROLL.probs[0] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.probs[scrollLength - 1] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.defaultProbs[0] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.defaultProbs[scrollLength - 1] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.defaultProbs2[0] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.defaultProbs2[scrollLength - 1] = additionalProbsForRareScrolls();
+        Generator.Category.SCROLL.defaultProbsTotal[0] = additionalProbsForRareScrolls() * 2;
+        Generator.Category.SCROLL.defaultProbsTotal[scrollLength - 1] = additionalProbsForRareScrolls() + additionalProbsForRareScrolls(true);
+
+        Generator.Category.POTION.probs[0] = additionalProbsForRarePotions();
+        Generator.Category.POTION.probs[potionsLength - 1] = additionalProbsForRarePotions();
+        Generator.Category.POTION.defaultProbs[0] = additionalProbsForRarePotions();
+        Generator.Category.POTION.defaultProbs[potionsLength - 1] = additionalProbsForRarePotions();
+        Generator.Category.POTION.defaultProbs2[0] = additionalProbsForRarePotions();
+        Generator.Category.POTION.defaultProbs2[potionsLength - 1] = additionalProbsForRarePotions();
+        Generator.Category.POTION.defaultProbsTotal[0] = additionalProbsForRarePotions() * 2;
+        Generator.Category.POTION.defaultProbsTotal[potionsLength - 1] = additionalProbsForRarePotions() + additionalProbsForRarePotions(true);
     }
 }

@@ -247,6 +247,8 @@ public class Dungeon {
 		//offset seed slightly to avoid output patterns
 		Random.pushGenerator( seed+1 );
 
+		Cheats.reset();
+
 		Scroll.initLabels();
 		Potion.initColors();
 		Ring.initGems();
@@ -260,8 +262,6 @@ public class Dungeon {
 		
 		Statistics.reset();
 		Notes.reset();
-
-		Cheats.reset();
 
 		quickslot.reset();
 		QuickSlotButton.reset();
